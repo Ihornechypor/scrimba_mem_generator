@@ -5,19 +5,21 @@ import * as Styled from './Mem.styles';
 const random = (max: number) => Math.floor(Math.random() * max);
 
 export const Mem = () => {
-  const [memTopText, setMemTopText] = useState('');
-  const [memBotText, setMemBotText] = useState('');
-  const [memSrc, setMemSrc] = useState('');
-  const [memLoaded, setMemLoaded] = useState(false);
+  const [memStatus, setMemStatus] = useState({ memTopText: '', memBotText: '', memSrc: '', memLoaded: false });
 
   const handleMemTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === 'memTopText') setMemTopText(e.target.value);
-    if (e.target.id === 'memBotText') setMemBotText(e.target.value);
+    if (e.target.id === 'memTopText') setMemStatus((prev) => ({ ...prev, memTopText: e.target.value }));
+    if (e.target.id === 'memBotText') setMemStatus((prev) => ({ ...prev, memBotText: e.target.value }));
   };
-  const handleGetMem = () => {
-    setMemSrc(data.data.memes[random(data.data.memes.length - 1)].url);
-    setMemLoaded(true);
-  };
+  const handleGetMem = () =>
+    setMemStatus((prev) => ({
+      ...prev,
+      memSrc: data.data.memes[random(data.data.memes.length - 1)].url,
+      memTopText: '',
+      memBotText: '',
+      memLoaded: true,
+    }));
+
   return (
     <Styled.MemWrap>
       <Styled.MemInputWrap>
@@ -27,8 +29,9 @@ export const Mem = () => {
               type="text"
               placeholder="Shut up"
               id="memTopText"
+              value={memStatus.memTopText}
               onChange={handleMemTextChange}
-              disabled={!memLoaded}
+              disabled={!memStatus.memLoaded}
             />
           </label>
         </Styled.MemInputBox>
@@ -38,17 +41,18 @@ export const Mem = () => {
               type="text"
               placeholder="and take my money"
               id="memBotText"
+              value={memStatus.memBotText}
               onChange={handleMemTextChange}
-              disabled={!memLoaded}
+              disabled={!memStatus.memLoaded}
             />
           </label>
         </Styled.MemInputBox>
       </Styled.MemInputWrap>
       <button onClick={handleGetMem}>Get a new meme image 🖼</button>
       <Styled.MemScene>
-        <Styled.MemText memTextTop>{memTopText}</Styled.MemText>
-        {memLoaded && <img src={memSrc} alt="" />}
-        <Styled.MemText memTextBot>{memBotText}</Styled.MemText>
+        <Styled.MemText memTextTop>{memStatus.memTopText}</Styled.MemText>
+        {memStatus.memLoaded && <img src={memStatus.memSrc} alt="" />}
+        <Styled.MemText memTextBot>{memStatus.memBotText}</Styled.MemText>
       </Styled.MemScene>
     </Styled.MemWrap>
   );
