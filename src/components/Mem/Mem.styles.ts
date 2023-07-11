@@ -1,6 +1,11 @@
 import { css, styled } from 'styled-components';
 import { themeFonts } from '../../styles/theme';
 
+interface MemStyleProps {
+  memTextTop?: boolean;
+  memTextBot?: boolean;
+}
+
 const MemWrap = styled.div`
   button {
     background: linear-gradient(135deg, #711f8d 0%, #a818da 100%);
@@ -39,7 +44,7 @@ const MemScene = styled.div`
   justify-content: center;
 `;
 
-const MemText = styled.p`
+const MemText = styled.p<MemStyleProps>`
   position: absolute;
   display: block;
   padding: 5px 10px;
@@ -47,12 +52,12 @@ const MemText = styled.p`
   font-family: ${themeFonts.memFont};
   color: #fff;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  ${(props: { memTextTop: boolean }) =>
+  ${(props) =>
     props.memTextTop &&
     css`
       top: 40px;
     `}
-  ${(props: { memTextBot: boolean }) =>
+  ${(props) =>
     props.memTextBot &&
     css`
       bottom: 40px;
