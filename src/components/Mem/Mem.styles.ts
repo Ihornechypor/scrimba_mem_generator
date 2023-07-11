@@ -1,4 +1,5 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
+import { themeFonts } from '../../styles/theme';
 
 const MemWrap = styled.div`
   button {
@@ -31,6 +32,31 @@ const MemInputBox = styled.div`
   }
 `;
 
-const MemScene = styled.div``;
+const MemScene = styled.div`
+  margin-top: 30px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+`;
 
-export { MemInputBox, MemInputWrap, MemScene, MemWrap };
+const MemText = styled.p`
+  position: absolute;
+  display: block;
+  padding: 5px 10px;
+  font-size: calc(2rem + 2vw);
+  font-family: ${themeFonts.memFont};
+  color: #fff;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  ${(props: { memTextTop: boolean }) =>
+    props.memTextTop &&
+    css`
+      top: 40px;
+    `}
+  ${(props: { memTextBot: boolean }) =>
+    props.memTextBot &&
+    css`
+      bottom: 40px;
+    `};
+`;
+
+export { MemInputBox, MemInputWrap, MemScene, MemText, MemWrap };

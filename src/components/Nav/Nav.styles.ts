@@ -17,5 +17,9 @@ const Nav = styled.nav`
     width: 100%;
     max-width: 32px;
   }
+  p {
+    flex-grow: 1;
+    text-align: right;
+  }
 `;
 export { Nav };

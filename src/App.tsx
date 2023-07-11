@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Nav srcLogo={tollImg} />
+      <Nav srcLogo={tollImg} head="Meme Generator" topic="React Course - Project 3" />
       <Main>
         <Section>
           <Mem />
