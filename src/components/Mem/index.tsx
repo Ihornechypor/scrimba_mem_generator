@@ -2,6 +2,7 @@ import { useState } from 'react';
 import data from '../../data/mems';
 import Input from '../Input';
 import * as Styled from './Mem.styles';
+import MemScene from './MemScene/index';
 
 const random = (max: number) => Math.floor(Math.random() * max);
 
@@ -13,8 +14,6 @@ export const Mem = () => {
     if (e.target.id === 'memBotText') setMemStatus((prev) => ({ ...prev, memBotText: e.target.value }));
   };
   const handleGetMem = () => {
-    console.log(1);
-
     setMemStatus((prev) => ({
       ...prev,
       memSrc: data.data.memes[random(data.data.memes.length - 1)].url,
@@ -49,11 +48,12 @@ export const Mem = () => {
         </Styled.MemInputBox>
       </Styled.MemInputWrap>
       <button onClick={handleGetMem}>Get a new meme image 🖼</button>
-      <Styled.MemScene>
-        <Styled.MemText memTextTop>{memStatus.memTopText}</Styled.MemText>
-        {memStatus.memLoaded && <img src={memStatus.memSrc} alt="" />}
-        <Styled.MemText memTextBot>{memStatus.memBotText}</Styled.MemText>
-      </Styled.MemScene>
+      <MemScene
+        memTopText={memStatus.memTopText}
+        memBotText={memStatus.memBotText}
+        memLoaded={memStatus.memLoaded}
+        memSrc={memStatus.memSrc}
+      />
     </Styled.MemWrap>
   );
 };

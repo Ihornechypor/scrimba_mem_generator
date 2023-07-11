@@ -1,10 +1,4 @@
-import { css, styled } from 'styled-components';
-import { themeFonts } from '../../styles/theme';
-
-interface MemStyleProps {
-  memTextTop?: boolean;
-  memTextBot?: boolean;
-}
+import { styled } from 'styled-components';
 
 const MemWrap = styled.div`
   button {
@@ -24,44 +18,6 @@ const MemInputWrap = styled.div`
   grid-template-columns: 0.5fr 0.5fr;
   gap: 10px;
 `;
-const MemInputBox = styled.div`
-  input {
-    display: block;
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 5px;
-    border: 1px solid #d5d4d8;
-    &::placeholder {
-      color: #0d0d0d;
-    }
-  }
-`;
+const MemInputBox = styled.div``;
 
-const MemScene = styled.div`
-  margin-top: 30px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-`;
-
-const MemText = styled.p<MemStyleProps>`
-  position: absolute;
-  display: block;
-  padding: 5px 10px;
-  font-size: calc(2rem + 2vw);
-  font-family: ${themeFonts.memFont};
-  color: #fff;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  ${(props) =>
-    props.memTextTop &&
-    css`
-      top: 40px;
-    `}
-  ${(props) =>
-    props.memTextBot &&
-    css`
-      bottom: 40px;
-    `};
-`;
-
-export { MemInputBox, MemInputWrap, MemScene, MemText, MemWrap };
+export { MemInputBox, MemInputWrap, MemWrap };

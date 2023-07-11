@@ -1,3 +1,4 @@
+import * as Styled from './Input.styles';
 interface InputProps {
   type: 'text';
   placeholder?: string;
@@ -8,7 +9,7 @@ interface InputProps {
 }
 
 const Input = ({ value, type, placeholder, id, disabled, onChangeInp }: InputProps) => (
-  <label>
+  <Styled.InputBox>
     <input
       type={type}
       {...(id ? { id: id } : {})}
@@ -17,7 +18,7 @@ const Input = ({ value, type, placeholder, id, disabled, onChangeInp }: InputPro
       value={value}
       onChange={onChangeInp}
     />
-  </label>
+  </Styled.InputBox>
 );
 
 export default Input;
