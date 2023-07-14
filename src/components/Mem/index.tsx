@@ -9,10 +9,8 @@ const random = (max: number) => Math.floor(Math.random() * max);
 export const Mem = () => {
   const [memStatus, setMemStatus] = useState({ memTopText: '', memBotText: '', memSrc: '', memLoaded: false });
 
-  const handleMemTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.id === 'memTopText') setMemStatus((prev) => ({ ...prev, memTopText: e.target.value }));
-    if (e.target.id === 'memBotText') setMemStatus((prev) => ({ ...prev, memBotText: e.target.value }));
-  };
+  const handleMemTextChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setMemStatus((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   const handleGetMem = () => {
     setMemStatus((prev) => ({
       ...prev,
@@ -29,7 +27,7 @@ export const Mem = () => {
         <Styled.MemInputBox>
           <Input
             type="text"
-            placeholder="Shut up"
+            placeholder="type text"
             id="memTopText"
             value={memStatus.memTopText}
             onChangeInp={handleMemTextChange}
@@ -39,7 +37,7 @@ export const Mem = () => {
         <Styled.MemInputBox>
           <Input
             type="text"
-            placeholder="and take my money"
+            placeholder="type text"
             id="memBotText"
             value={memStatus.memBotText}
             onChangeInp={handleMemTextChange}
