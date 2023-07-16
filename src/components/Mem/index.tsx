@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import data from '../../data/mems';
 import Input from '../Input';
 import * as Styled from './Mem.styles';
 import MemScene from './MemScene/index';
@@ -8,6 +7,7 @@ const random = (max: number) => Math.floor(Math.random() * max);
 
 export const Mem = () => {
   const [memStatus, setMemStatus] = useState({ memTopText: '', memBotText: '', memSrc: '', memLoaded: false });
+  const [allMems, setAllMems] = useState(['']);
 
   const handleMemTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,7 +19,8 @@ export const Mem = () => {
       ...prev,
       memTopText: '',
       memBotText: '',
-      memLoaded: !prev.memLoaded,
+      memSrc: allMems[random(allMems.length - 1)],
+      memLoaded: true,
     }));
   };
 
@@ -27,14 +28,12 @@ export const Mem = () => {
     fetch('https://api.imgflip.com/get_memes')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        setAllMems(data.data.memes.map((item: { url: string }) => item.url));
         setMemStatus((prev) => ({
           ...prev,
-          memSrc: data.data.memes[random(data.data.memes.length - 1)].url,
-          memLoaded: true,
         }));
       });
-  }, [memStatus.memLoaded]);
+  }, []);
 
   return (
     <Styled.MemWrap>
