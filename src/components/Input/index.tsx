@@ -2,17 +2,17 @@ import * as Styled from './Input.styles';
 interface InputProps {
   type: 'text';
   placeholder?: string;
-  id?: string;
+  name?: string;
   value: string;
   disabled?: boolean;
   onChangeInp: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ value, type, placeholder, id, disabled, onChangeInp }: InputProps) => (
+const Input = ({ value, type, placeholder, name, disabled, onChangeInp }: InputProps) => (
   <Styled.InputBox>
     <input
       type={type}
-      {...(id ? { id: id } : {})}
+      {...(name ? { name: name } : {})}
       {...(placeholder ? { placeholder: placeholder } : {})}
       {...(disabled ? { disabled: disabled } : {})}
       value={value}

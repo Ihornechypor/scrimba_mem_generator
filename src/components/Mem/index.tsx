@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import data from '../../data/mems';
 import Input from '../Input';
 import * as Styled from './Mem.styles';
@@ -9,17 +9,32 @@ const random = (max: number) => Math.floor(Math.random() * max);
 export const Mem = () => {
   const [memStatus, setMemStatus] = useState({ memTopText: '', memBotText: '', memSrc: '', memLoaded: false });
 
-  const handleMemTextChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setMemStatus((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  const handleMemTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setMemStatus((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleGetMem = () => {
     setMemStatus((prev) => ({
       ...prev,
-      memSrc: data.data.memes[random(data.data.memes.length - 1)].url,
       memTopText: '',
       memBotText: '',
-      memLoaded: true,
+      memLoaded: !prev.memLoaded,
     }));
   };
+
+  useEffect(() => {
+    fetch('https://api.imgflip.com/get_memes')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setMemStatus((prev) => ({
+          ...prev,
+          memSrc: data.data.memes[random(data.data.memes.length - 1)].url,
+          memLoaded: true,
+        }));
+      });
+  }, [memStatus.memLoaded]);
 
   return (
     <Styled.MemWrap>
@@ -28,7 +43,7 @@ export const Mem = () => {
           <Input
             type="text"
             placeholder="type text"
-            id="memTopText"
+            name="memTopText"
             value={memStatus.memTopText}
             onChangeInp={handleMemTextChange}
             disabled={!memStatus.memLoaded}
@@ -38,7 +53,7 @@ export const Mem = () => {
           <Input
             type="text"
             placeholder="type text"
-            id="memBotText"
+            name="memBotText"
             value={memStatus.memBotText}
             onChangeInp={handleMemTextChange}
             disabled={!memStatus.memLoaded}

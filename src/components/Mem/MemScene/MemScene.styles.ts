@@ -1,5 +1,5 @@
 import { css, styled } from 'styled-components';
-import { themeFonts } from '../../../styles/theme';
+import theme, { themeFonts } from '../../../styles/theme';
 
 interface MemStyleProps {
   memTextTop?: boolean;
@@ -15,6 +15,10 @@ const MemScene = styled.div`
 
 const MemSceneText = styled.p<MemStyleProps>`
   position: absolute;
+  width: 100%;
+  word-break: break-all;
+  text-align: center;
+  max-width: ${theme.global.maxSectionWidth};
   display: block;
   padding: 5px 10px;
   font-size: calc(2rem + 2vw);

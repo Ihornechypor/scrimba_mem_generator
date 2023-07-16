@@ -19,6 +19,7 @@ const theme = {
     textColor: themeColors.black,
     lineHeight: 1.4,
     gutter: '24px',
+    maxSectionWidth: '920px',
   },
 };
 
